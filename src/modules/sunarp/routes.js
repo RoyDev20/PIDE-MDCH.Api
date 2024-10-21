@@ -1,0 +1,12 @@
+import { Router } from "express";
+const sunarpRouter = Router();
+import controller from "./controller";
+import { setHeaders } from '../../middlewares';
+// import {queryReniec} from '../../validators/dnii';
+sunarpRouter.get("/getOficinas",[setHeaders], controller.getOficinas);
+sunarpRouter.post("/postQueryPJRazonSocial",[setHeaders], controller.postQueryPJRazonSocial);
+sunarpRouter.post("/postTitularidadSIRSARP",[setHeaders], controller.postTitularidadSIRSARP);
+sunarpRouter.post("/postListarAsientosSIRSARP",[setHeaders], controller.postListarAsientosSIRSARP);
+sunarpRouter.post("/postVerAsientosSIRSARP",[setHeaders], controller.postVerAsientosSIRSARP);
+sunarpRouter.post("/postDetalleRPVExtra",[setHeaders], controller.postDetalleRPVExtra);
+export default sunarpRouter;

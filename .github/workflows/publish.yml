@@ -1,0 +1,51 @@
+name: publish
+
+on:
+  push:
+    branches: ["main"]  
+  pull_request:
+    branches: ["main"]    
+
+jobs:
+  create-docker-image-api-pide:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chechout the code
+        uses: actions/checkout@v2
+
+      - name: Login to Github Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN_CD }}
+
+      - name: Build the tenant-rabbit docker image
+        run: |
+          docker build . --tag ghcr.io/royzp/apipide.mdch:latest
+          docker push ghcr.io/royzp/apipide.mdch:latest
+
+  deploy:
+    needs: create-docker-image-api-pide
+    runs-on: ubuntu-latest
+    steps:      
+      - name: SSH into Server
+        uses: appleboy/ssh-action@v1.0.0
+        with: 
+          host: ${{secrets.HOST_SERVER}}
+          username: ${{secrets.USER_SERVER}}
+          key: ${{secrets.KEY_SERVER}}
+          port: ${{secrets.PORT_SERVER}}
+          script: |
+            cd /root/api-pide/
+            docker login ghcr.io -u royzp -p ${{secrets.TOKEN_CD}}
+            docker pull ghcr.io/royzp/apipide.mdch:latest
+            docker stop api-node-pide-container && docker rm api-node-pide-container
+            docker run -d \
+              --name api-node-pide-container \
+              -p 3005:3005 \
+              -v $(pwd)/bot_sessions1:/app/bot_sessions1 \
+              -w /app \
+              --restart always \
+              ghcr.io/royzp/apipide.mdch:latest
+            exit        

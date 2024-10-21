@@ -1,0 +1,17 @@
+version: "3"
+services:
+  node-app:
+    container_name: pideapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3005"
+    restart: always
+    networks:
+      - network-appalert
+
+networks:
+  network-appalert:
+    external: true
+# docker network create network-appalert

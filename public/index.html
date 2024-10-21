@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+
+    <title>Mi Página HTML</title>
+
+    <style>
+    html,
+    body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    body {
+        display: grid;
+        place-items: center;
+        background: rgb(10, 10, 10);
+    }
+
+
+
+
+
+    .warning {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border: 2px solid #ff0000;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      max-width: 400px;
+      text-align: center;
+      display: none;
+
+    }
+    </style>
+
+    <script src="./script.js" defer></script>
+</head>
+<body>
+
+    <div class="warning" id="warning">
+        <h2>¡Advertencia!</h2>
+        <p>Las herramientas de desarrollo están abiertas. Esto puede afectar el funcionamiento de la aplicación.</p>
+      </div>
+    
+    <!-- <p>hola</p> -->
+    <canvas id="matrix-box"></canvas>
+</body>
+</html>
