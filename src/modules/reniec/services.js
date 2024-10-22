@@ -3,7 +3,8 @@ const axios = require('axios');
 
 export class PideService {
   static _pideServiceInstance = null;
-  url_base = `https://ws5.pide.gob.pe/Rest/Reniec`;
+  // url_base = `https://ws5.pide.gob.pe/Rest/Reniec`;
+  url_base = `https://ws2.pide.gob.pe/Rest/RENIEC`;
   constructor() { }
   static getInstance() {
     if (!PideService._pideServiceInstance) {
